@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { IContact } from '../contact.model';
 import { ServiceService } from '../service.service';
 import {
@@ -14,7 +20,7 @@ import {
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.css'],
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent implements OnInit, OnChanges {
   name: string = '';
   number: string = '';
   form: FormGroup;
@@ -22,15 +28,20 @@ export class ContactComponent implements OnInit {
     name: this.name,
     mobileNumber: this.number,
   };
+  @Input() editIndex: number = -1;
   postData() {
     this.data.name = this.form.value.name;
     this.data.mobileNumber = this.form.value.number;
-    this.service.addData(this.data);
+    if (this.editIndex != -1) this.service.editData(this.editIndex, this.data);
+    else this.service.addData(this.data);
+    this.editIndex = -1;
   }
-  editData(i: number) {
-    this.data = this.service.getById(i);
-    let setData = { name: this.data.name, number: this.data.mobileNumber };
-    this.form.setValue(setData);
+  editData() {
+    if (this.editIndex != -1) {
+      this.data = this.service.getById(this.editIndex);
+      let setData = { name: this.data.name, number: this.data.mobileNumber };
+      this.form.setValue(setData);
+    }
   }
   constructor(public service: ServiceService, private fc: FormBuilder) {
     this.form = this.fc.group({
@@ -38,6 +49,8 @@ export class ContactComponent implements OnInit {
       number: new FormControl('', [Validators.required]),
     });
   }
-
+  ngOnChanges(changes: SimpleChanges): void {
+    this.editData();
+  }
   ngOnInit(): void {}
 }

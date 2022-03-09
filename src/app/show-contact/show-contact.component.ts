@@ -10,12 +10,12 @@ import { ServiceService } from '../service.service';
 export class ShowContactComponent implements OnInit {
   data: IContact[] = [];
   single: IContact;
-  @Output() edit = new EventEmitter<IContact>();
+  @Output() edit = new EventEmitter<number>();
   loadData() {
     this.data = this.service.getData();
   }
   editData(i: number) {
-    this.edit.emit(this.single);
+    this.edit.emit(i);
   }
   deleteData(clearAll: boolean, i: number) {
     this.service.deleteData(clearAll, i);
@@ -25,5 +25,7 @@ export class ShowContactComponent implements OnInit {
     this.single = this.data[0];
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.edit);
+  }
 }

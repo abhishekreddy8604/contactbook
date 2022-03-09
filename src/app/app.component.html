@@ -1,15 +1,15 @@
 <div class="container-fluid">
-  <h1 class="text-center">
-    spaarks Assignment {{ todayDate | date: "shortDate" }}
-  </h1>
+  <h1 class="text-center">spaarks Assignment</h1>
+  <p class="text-right mr-5">todays date:{{ todayDate | date: "shortDate" }}</p>
+
   <br /><br />
   <div class="container">
     <div class="row">
       <div class="col-md-4">
-        <app-contact></app-contact>
+        <app-contact [editIndex]="editIndex"></app-contact>
       </div>
       <div class="col-md-8">
-        <app-show-contact></app-show-contact>
+        <app-show-contact (edit)="editData($event)"></app-show-contact>
       </div>
     </div>
   </div>
