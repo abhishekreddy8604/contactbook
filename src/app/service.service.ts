@@ -7,12 +7,12 @@ import { IContact } from './contact.model';
 export class ServiceService {
   data: IContact[] = [
     {
-      name: 'hello',
-      mobileNumber: '1234567891',
+      name: 'user1',
+      mobileNumber: '9658246900',
     },
     {
-      name: 'helldf1',
-      mobileNumber: '1234567891',
+      name: 'user2',
+      mobileNumber: '1234567890',
     },
   ];
   getById(id: number) {
