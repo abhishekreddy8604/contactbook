@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { IContact } from '../contact.model';
 import { ServiceService } from '../service.service';
-
+import {
+  ReactiveFormsModule,
+  FormGroup,
+  NgForm,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -11,19 +17,27 @@ import { ServiceService } from '../service.service';
 export class ContactComponent implements OnInit {
   name: string = '';
   number: string = '';
+  form: FormGroup;
   data: IContact = {
     name: this.name,
     mobileNumber: this.number,
   };
-  postData(f: NgForm) {
-    console.log(f);
-    //   this.data.name = f.name;
-    // this.data.mobileNumber = f.number;
-    //this.service.addData(this.data);
-    // this.name = '';
-    // this.number = '';
+  postData() {
+    this.data.name = this.form.value.name;
+    this.data.mobileNumber = this.form.value.number;
+    this.service.addData(this.data);
   }
-  constructor(public service: ServiceService) {}
+  editData(i: number) {
+    this.data = this.service.getById(i);
+    let setData = { name: this.data.name, number: this.data.mobileNumber };
+    this.form.setValue(setData);
+  }
+  constructor(public service: ServiceService, private fc: FormBuilder) {
+    this.form = this.fc.group({
+      name: new FormControl('', [Validators.required]),
+      number: new FormControl('', [Validators.required]),
+    });
+  }
 
   ngOnInit(): void {}
 }

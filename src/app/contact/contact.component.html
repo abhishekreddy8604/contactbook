@@ -1,13 +1,23 @@
-<form #f="ngForm" (ngSubmit)="postData(f.value)">
+<form [formGroup]="form" (ngSubmit)="postData()">
   <div class="form-group">
     <i class="fa-solid fa-user mx-2"></i>
     <label for="name">Name</label>
-    <input type="text" name="name" id="" placeholder="name" />
+    <input
+      formControlName="name"
+      class="form-control"
+      type="text"
+      placeholder="name"
+    />
     <br /><br />
     <i class="fa-solid fa-phone mx-2"></i>
     <label for="number">Number</label>
-    <input type="text" name="number" id="" placeholder="mobile number" />
+    <input
+      formControlName="number"
+      class="form-control"
+      type="text"
+      placeholder="mobile number"
+    />
     <br /><br />
-    <input type="submit" class="btn btn-primary mx-5" />
+    <button type="submit" class="btn btn-primary mx-5">submit</button>
   </div>
 </form>

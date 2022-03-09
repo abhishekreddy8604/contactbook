@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { IContact } from '../contact.model';
 import { ServiceService } from '../service.service';
 
@@ -9,17 +9,20 @@ import { ServiceService } from '../service.service';
 })
 export class ShowContactComponent implements OnInit {
   data: IContact[] = [];
+  single: IContact;
+  @Output() edit = new EventEmitter<IContact>();
   loadData() {
     this.data = this.service.getData();
   }
   editData(i: number) {
-    //  this.service.editData();
+    this.edit.emit(this.single);
   }
   deleteData(clearAll: boolean, i: number) {
     this.service.deleteData(clearAll, i);
   }
   constructor(public service: ServiceService) {
     this.loadData();
+    this.single = this.data[0];
   }
 
   ngOnInit(): void {}

@@ -15,6 +15,13 @@ export class ServiceService {
       mobileNumber: '1234567891',
     },
   ];
+  id = -1;
+  changeId(id: number) {
+    this.id = id;
+  }
+  getById(id: number) {
+    return this.data[id];
+  }
   getData() {
     return this.data;
   }
