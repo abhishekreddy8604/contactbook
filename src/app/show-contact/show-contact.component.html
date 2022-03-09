@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>
+    Phone Numbers
+    <button (click)="deleteData(true, 0)" class="btn btn-danger">
+      Clear all
+    </button>
+  </h1>
+  <div class="row">
+    <div class="mx-3 my-1">Sl.no</div>
+    <div class="mx-3 my-1">Name</div>
+    <div class="mx-3 my-1">Mobie Number</div>
+    <div class="mx-3 my-1">Action</div>
+  </div>
+  <div class="row" *ngFor="let item of data; let i = index">
+    <div class="mx-4 my-1">{{ i + 1 }}</div>
+    <div class="mx-4 my-1">{{ item.name }}</div>
+    <div class="mx-4 my-1">{{ item.mobileNumber }}</div>
+    <div class="mx-4 my-1">
+      <button (click)="editData(i)" class="btn btn-outline-primary mx-2 my-1">
+        Edit
+      </button>
+      <button
+        (click)="deleteData(false, i)"
+        class="btn btn-outline-danger mx-2 my-1"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
